@@ -1,0 +1,1019 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Operating System - Concepts</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			white-space: pre-wrap;
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			text-indent: -1.7em;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {}
+
+		.highlight-gray {
+			color: rgb(155, 154, 151);
+		}
+
+		.highlight-brown {
+			color: rgb(100, 71, 58);
+		}
+
+		.highlight-orange {
+			color: rgb(217, 115, 13);
+		}
+
+		.highlight-yellow {
+			color: rgb(223, 171, 1);
+		}
+
+		.highlight-teal {
+			color: rgb(15, 123, 108);
+		}
+
+		.highlight-blue {
+			color: rgb(11, 110, 153);
+		}
+
+		.highlight-purple {
+			color: rgb(105, 64, 165);
+		}
+
+		.highlight-pink {
+			color: rgb(173, 26, 114);
+		}
+
+		.highlight-red {
+			color: rgb(224, 62, 62);
+		}
+
+		.highlight-gray_background {
+			background: rgb(235, 236, 237);
+		}
+
+		.highlight-brown_background {
+			background: rgb(233, 229, 227);
+		}
+
+		.highlight-orange_background {
+			background: rgb(250, 235, 221);
+		}
+
+		.highlight-yellow_background {
+			background: rgb(251, 243, 219);
+		}
+
+		.highlight-teal_background {
+			background: rgb(221, 237, 234);
+		}
+
+		.highlight-blue_background {
+			background: rgb(221, 235, 241);
+		}
+
+		.highlight-purple_background {
+			background: rgb(234, 228, 242);
+		}
+
+		.highlight-pink_background {
+			background: rgb(244, 223, 235);
+		}
+
+		.highlight-red_background {
+			background: rgb(251, 228, 228);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(55, 53, 47, 0.6);
+			fill: rgba(55, 53, 47, 0.6);
+		}
+
+		.block-color-brown {
+			color: rgb(100, 71, 58);
+			fill: rgb(100, 71, 58);
+		}
+
+		.block-color-orange {
+			color: rgb(217, 115, 13);
+			fill: rgb(217, 115, 13);
+		}
+
+		.block-color-yellow {
+			color: rgb(223, 171, 1);
+			fill: rgb(223, 171, 1);
+		}
+
+		.block-color-teal {
+			color: rgb(15, 123, 108);
+			fill: rgb(15, 123, 108);
+		}
+
+		.block-color-blue {
+			color: rgb(11, 110, 153);
+			fill: rgb(11, 110, 153);
+		}
+
+		.block-color-purple {
+			color: rgb(105, 64, 165);
+			fill: rgb(105, 64, 165);
+		}
+
+		.block-color-pink {
+			color: rgb(173, 26, 114);
+			fill: rgb(173, 26, 114);
+		}
+
+		.block-color-red {
+			color: rgb(224, 62, 62);
+			fill: rgb(224, 62, 62);
+		}
+
+		.block-color-gray_background {
+			background: rgb(235, 236, 237);
+		}
+
+		.block-color-brown_background {
+			background: rgb(233, 229, 227);
+		}
+
+		.block-color-orange_background {
+			background: rgb(250, 235, 221);
+		}
+
+		.block-color-yellow_background {
+			background: rgb(251, 243, 219);
+		}
+
+		.block-color-teal_background {
+			background: rgb(221, 237, 234);
+		}
+
+		.block-color-blue_background {
+			background: rgb(221, 235, 241);
+		}
+
+		.block-color-purple_background {
+			background: rgb(234, 228, 242);
+		}
+
+		.block-color-pink_background {
+			background: rgb(244, 223, 235);
+		}
+
+		.block-color-red_background {
+			background: rgb(251, 228, 228);
+		}
+
+		.select-value-color-default {
+			background-color: rgba(206, 205, 202, 0.5);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(155, 154, 151, 0.4);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(140, 46, 0, 0.2);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(245, 93, 0, 0.2);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(233, 168, 0, 0.2);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(0, 135, 107, 0.2);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(0, 120, 223, 0.2);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(103, 36, 222, 0.2);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(221, 0, 129, 0.2);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 0, 26, 0.2);
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="761d0213-686a-43a8-9af0-a91d646d869b" class="page sans">
+		<header>
+			<h1 class="page-title">Operating System - Concepts</h1>
+		</header>
+		<div class="page-body">
+			<h1 id="42b771ae-3d44-4a1b-8f06-594882c1fd75" class="">Program - Process and States of Process</h1>
+			<h2 id="b1e42503-3439-48d1-bbbb-721b3aa569e2" class="block-color-blue">Program Vs Process : </h2>
+			<p id="6e838860-076d-40b4-8c72-f0c9473b5f4e" class="">Consider an example where you have to open the google
+				chrome.</p>
+			<p id="a0c14c58-f72c-4541-9873-59cd59351fa2" class="">what will happen -:</p>
+			<ul id="719e7c6a-48ca-4efe-b521-7effa4b11ac5" class="bulleted-list">
+				<li>The CPU got triggered to open google chrome.</li>
+			</ul>
+			<ul id="80283734-c7cd-40dc-a13b-b6719d00709b" class="bulleted-list">
+				<li>The CPU will look for chrome in the RAM </li>
+			</ul>
+			<ul id="989ca416-a7ad-4734-b10c-4554bcf47e3d" class="bulleted-list">
+				<li>If it finds then show that if not then search in the hard-drive</li>
+			</ul>
+			<ul id="aeceaf8e-d49b-4b61-999e-af647eb22a70" class="block-color-red bulleted-list">
+				<li>In the hard drive it will find the program and make a copy of it which is called a process </li>
+			</ul>
+			<ul id="0987ebb0-d678-4f78-ad5c-d377ace22274" class="block-color-red bulleted-list">
+				<li>And Hence, we can open two windows of chrome itself which are nothing but two process of chrome
+					running that is two copies of chrome moved to RAM from harddisk </li>
+			</ul>
+			<p id="b750f431-10ef-4f10-818b-1c37029c2608" class="">
+			</p>
+			<h2 id="529a9a33-ea84-4bee-b07f-73897f809bec" class="block-color-blue">States of a process : </h2>
+			<ul id="8f3c65cc-5988-46d7-8441-3f13456967f2" class="bulleted-list">
+				<li>New State : When the program is making the process</li>
+			</ul>
+			<ul id="97242cda-3e6d-45ac-ab94-a214d78746d4" class="bulleted-list">
+				<li>Ready State : Instance or process is generated and ready for the CPU to take action.</li>
+			</ul>
+			<ul id="1a9cca0f-f49b-4a2f-8337-21302b660188" class="bulleted-list">
+				<li>Running State : Process is running by the CPU</li>
+			</ul>
+			<ul id="75ada745-e495-4436-817c-8bff177a88d9" class="bulleted-list">
+				<li>I/O State : Process is ready for some I/O. </li>
+			</ul>
+			<ul id="c49dcf94-3c1a-402d-bb83-5b480d82069c" class="bulleted-list">
+				<li>Terminated State : Process has done execution and has been removed from the RAM.</li>
+			</ul>
+			<p id="b28c1ef0-573d-4463-b81b-68cdeac7fb5a" class="">
+			</p>
+			<h1 id="9da61c89-4c2c-427b-982d-4fa990772b68" class="">Degree of Multiprogramming </h1>
+			<p id="24cd29a5-5658-4ed6-86cb-5575555b6e5a" class="">
+			</p>
+			<p id="4d8b392c-e8b3-4434-990d-40037c3f4eb2" class="">Maximum number of processes which are present inside
+				our computer is called degree of multiprogramming.</p>
+			<p id="b83ea8f2-ee6e-4dcc-8b52-c93f38960e56" class="">For example</p>
+			<p id="c85ac5bb-c96f-484a-adde-b0ab869dcb42" class="">if XPLANE takes 1 GB of RAM per process and total free
+				RAM in user space is 4 GB then the degree of multiprogramming is 4.</p>
+			<p id="ffe79cd2-f5a2-42f0-8dee-8a12f7ae6aa9" class="">
+			</p>
+			<h1 id="cdb611fa-9a3b-4839-9980-5b542296178c" class="">Types of Operating Systems</h1>
+			<h2 id="7b3228e9-192e-4cce-b1aa-c5b749812c7c" class="block-color-blue">Basic Terminologies : </h2>
+			<p id="2f40eadc-85ef-4ff0-92e4-fdc23f76477f" class="">
+			</p>
+			<ul id="61b1b42a-d39d-45fd-9c65-c28680e193c3" class="bulleted-list">
+				<li><strong>CPU efficiency</strong> : CPU efficiency is somewhat related that for how less time the CPU
+					was not working, for example in 10 seconds, the CPU needed to be idle for 2 seconds and working for
+					8 seconds then that CPU is 80% efficient.</li>
+			</ul>
+			<ul id="f3615105-0802-42b9-88f2-7faf3717c5b3" class="bulleted-list">
+				<li><strong>Parallel Processing</strong> : Parallel processing is a type of processing when the
+					processes are executed by the CPU at the same time. For example, a mother is feeding her two
+					children with both her hands, left for one children and right for other.</li>
+			</ul>
+			<ul id="b696dc3f-9e98-4787-a9cb-686fc11dd460" class="bulleted-list">
+				<li><strong>Concurrent Processing</strong> : Concurrent processing is a type of processing when the CPU
+					is focusing on one process at one time , For example, mother uses only one hand to feed her two
+					children, when one child is chewing she use the hand to feed the other child and vice-versa.</li>
+			</ul>
+			<p id="b15ad01e-3215-46e4-8707-85782ca61b4e" class="">
+			</p>
+			<h2 id="9de72e3f-3170-4aa6-9402-7658f03ecc79" class="block-color-blue">Types of Operating Systems : </h2>
+			<p id="3b2f8f10-102a-426b-837e-62f961008978" class="">
+			</p>
+			<ul id="9362b9d7-3d88-428f-89e0-5fa76634ce91" class="bulleted-list">
+				<li><strong>Batch Operating Systems</strong> : Batch operating systems have two properties, they only
+					have one CPU and they can only hold one process in their RAM on a time point, that means a process
+					need to be terminated if you want to open another process.<p
+						id="4d27ba28-da5a-4d81-9656-3e4ba172b7f3" class="block-color-red"><strong>They have Degree of
+							Multiprogramming - 1 </strong></p>
+					<ul id="c3ce79b8-517a-45b9-b7a3-85685d2ea858" class="bulleted-list">
+						<li><strong>Disadvantages :</strong>
+							<ul id="cb8558bc-74fa-43c4-a31e-183f110f7d89" class="bulleted-list">
+								<li><strong>Very Low CPU efficiency : </strong>Consider an example where you are using
+									batch operating system for typing your name.<ul
+										id="e2046976-5de7-4c69-9835-414f18722e21" class="bulleted-list">
+										<li>You type something on Keyboard ( I/O process, CPU idle).</li>
+									</ul>
+									<ul id="f62d74d6-5b05-42d1-96ec-58341fb89e86" class="bulleted-list">
+										<li>CPU understands that ( executing ) ( CPU running )</li>
+									</ul>
+									<ul id="9cfba197-95e4-4641-b95d-a6b94ee5713f" class="bulleted-list">
+										<li>Output on display ( CPU idle, I/O process )</li>
+									</ul>
+									<p id="8aaf8c5d-7add-436b-9941-1d0091881c4d" class="">As you know that execution and
+										I/O can&#x27;t be done at the same time, you can see how many times CPU goes
+										idle ( resting CPU , not working) and that make it super inefficient .</p>
+									<p id="ceeb85fc-bca8-4639-b0c3-b6fbe5faf3df" class="">
+									</p>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="7c3eb85b-0437-4f30-8d37-6dea700fad0d" class="bulleted-list">
+				<li><strong>Multiprogramming Operating Systems :</strong> This types of systems are widely used in
+					today, they have one CPU and they can store more than one process in RAM and that makes it cost
+					effective as well as they provide average efficiency for use. <mark
+						class="highlight-red"><strong>They use concurrent processing.</strong></mark></li>
+			</ul>
+			<p id="f31688d9-d6d8-4eab-adc1-96407ebb1e25" class="">
+			</p>
+			<ul id="12f4ae85-5926-42b2-91e6-d8deea21822e" class="bulleted-list">
+				<li><strong>Multiprocessing Operating System</strong> : This type of processing systems have more than
+					one CPU and they can also handle one than one process in their RAM. Like you might have heard
+					octacore CPU that actually means that there are 8 processors embedded in the CPU which can undergo
+					the processes that actually means Multiprocessing OS.<ul id="0ec168dd-53e8-4795-a270-d5355cde80d0"
+						class="bulleted-list">
+						<li>The major disadvantage they bring to us is their high cost.</li>
+					</ul>
+				</li>
+			</ul>
+			<p id="9c5c1e05-ea1c-4ffc-a899-d0702b163e09" class="">
+			</p>
+			<h1 id="d8db0d6e-c80f-4400-986c-35cc5724ad61" class="">Process Control Block and Attributes of a process :
+			</h1>
+			<p id="d42a5e57-dda0-49c0-8dba-63d24ff4ea50" class="">
+			</p>
+			<h2 id="7c159211-9077-4322-93d1-802d63169037" class="">Terminologies : </h2>
+			<ul id="2ca507b4-f83d-49b5-8074-491c59c01bb5" class="bulleted-list">
+				<li><strong>Active Entity and Passive Entity</strong> : When you load up a process then there are two
+					thing in the hard - disk before going to the RAM, one is the part which would be pushed to the RAM
+					while there would be other part which is the main program, always in the Hard-disk, this part is
+					called the passive entity while the other part is called the active entity.</li>
+			</ul>
+			<p id="b90a24a5-a297-43de-9540-d793a65b0f1a" class="">
+			</p>
+			<h2 id="4d1ea59a-4441-4407-80a0-3d60417fa37b" class="block-color-blue">Process Control Block :</h2>
+			<p id="d3443ed1-998c-4528-93a9-731067a51991" class="">When the process is load up there is not only the copy
+				of the program that is placed inside the RAM, in RAM their is a whole process control block or PCB which
+				is placed.</p>
+			<p id="40ec577f-14c3-4450-bc26-fdd9d22e7790" class="">In a PCB there are 4 parts basically, <strong>Stack
+					Memory, Heap Memory, Data Part and Program Part</strong></p>
+			<ul id="a75ffad4-4db2-4251-a15c-ed0ce9870136" class="bulleted-list">
+				<li><strong>Stack Memor</strong>y : A stack memory stores all the functions of the program which will be
+					executed at some point of time.</li>
+			</ul>
+			<ul id="b1fc48e6-73ab-4b1c-9521-d2ad03dbbcab" class="bulleted-list">
+				<li><strong>Heap Memory</strong> : Heap Memory stores all the things which are dynamically allocated,
+					which means the allocation was not done on build-time but it was done on the runtime.</li>
+			</ul>
+			<ul id="9c856484-463c-4d80-a08d-63daf999d22b" class="bulleted-list">
+				<li><strong>Data Part</strong> : The variables which are attached to a function will go with the
+					functions in the stack memory there is no issue with that but the variable which are not associated
+					with any functions like global variables and static variables, where will they go?, they will be
+					stored in data part of the PCB.</li>
+			</ul>
+			<ul id="bb66e9c4-1635-4859-885d-d7f1902c90b5" class="bulleted-list">
+				<li><strong>Program-Part</strong> : This is where the program itself get stored.</li>
+			</ul>
+			<p id="6e3ebc37-dffa-41ec-8029-0246c17fa3a4" class="">For several processes there are several PCB&#x27;s
+				controlling the process environment. </p>
+			<h2 id="d700a6b7-b46b-4074-bc03-95564b6d482e" class="block-color-blue">Process Attributes : </h2>
+			<p id="fca06eb8-601d-4e41-8feb-d49cd1bda6c0" class="">
+			</p>
+			<blockquote id="2e771a5a-787b-45c6-8150-3e495fd40e2c" class="">Scenario to be understood : So till now it
+				has been made clear that how CPU works, it is nothing but a resource manager somehow managing the
+				processes&#x27;s PCBs, this work is somhow done by schedulers, a process is scheduled means that
+				processor is currently executing that operation and a process is truncated that means the process is
+				eliminated by for sometime.
+				Now, there are various scheduling algorithms which we use for scheduling processes, like first come
+				first serve or shortest job first algorithm, now to understand process attribute, let&#x27;s take an
+				example that a processor is using a shortest job first scheduling algorithm.
+				Now take two processes, A and process B, A take 5 ns to execute while B takes 2 ns to execute, the
+				scheduling algorithm used the algo and obviously picked up process B to implement, B has somewhat 100
+				lines of code and 100 files to be read by B to be executed, imagine any game in your mind, now the user
+				pushed another PCB of process C which takes only 1 ns to execute, now according to the algo B should not
+				be executed first, now C is the top priority.
+				Now, C would get what it deserve, the first priority, say B has been executed till line number 20 okay
+				and read 10 files out of 100 and also has opened 5 files out of 10 ( maybe displayed (I/0)) understand
+				it like you are playing CSGO and a gun is loaded but the player model is not loaded yet.
+				So, B need to be forcefully stop now and something we should also think with our common sense, 20 lines
+				of code has been already executed, when we will come back to execute process B after we execute C we
+				will not load those 20 lines of code, that will be efficient, 10 files we have already read so we will
+				not read them again, 5 files have already displayed, we will not display them again, we need everything
+				to be effiecient na, why we will do the work that we have already did.
+				So, we need to store some information about B that how much work has been done to B first by the CPU, so
+				that when we come back to B after the execution of C we have a clear knowledge of what we have to do
+				next and we won&#x27;t repeat things and are super efficient.
+				That&#x27;s why we use process attributes, they are nothing but some attributes which help us to store
+				the information about a particular process.</blockquote>
+			<p id="b9a174c3-ccfe-466a-a678-978ffe2b4a14" class="">
+			</p>
+			<ul id="019763f6-95fc-4427-8c6e-33f0798ad6d2" class="bulleted-list">
+				<li><strong>Process ID</strong> : Process ID is assigned to every process to every process automatically
+					so that it can be easily identified by the CPU.</li>
+			</ul>
+			<ul id="9305d69c-13c1-4b7d-bec2-ca28881355c0" class="bulleted-list">
+				<li><strong>Process Counters</strong> : Process counters gives us information that how much process has
+					been executed, in our case that is line 20.</li>
+			</ul>
+			<ul id="096e0db5-d4bc-4df5-92f9-7ea28058becd" class="bulleted-list">
+				<li><strong>Process State : </strong>Truncated or Scheduled.</li>
+			</ul>
+			<ul id="6f86a52c-e787-4e16-addb-e2c3cb290705" class="bulleted-list">
+				<li><strong>General Purpose Registers</strong> : Registers are also memory blocks like heaps and stack,
+					so consider that till the 20th line has executed the program has stored some information, consider
+					playing CSGO, the player has 20 gold coins, so now we are terminating B we need to store this
+					information also somewhere, so we store such information in registers.</li>
+			</ul>
+			<ul id="db1ed8be-517d-4b22-b53e-d2a3171a31ed" class="bulleted-list">
+				<li><strong>Priority</strong> : The priority of the process according to the scheduling algorithm .</li>
+			</ul>
+			<ul id="e149fa28-cccf-4b09-a4c8-7b3953b657b9" class="bulleted-list">
+				<li><strong>List of open files</strong> : The list of files B have read till now so you don&#x27;t have
+					to read them again</li>
+			</ul>
+			<ul id="90ffd29a-781e-4483-8118-db9498e4a131" class="bulleted-list">
+				<li><strong>List of open devices</strong> : List of open devices for the process, take example of
+					headphone support while playing CSGO, the process must remember na that it has given headphone
+					support already so don&#x27;t need to give them or verify them back.</li>
+			</ul>
+			<ul id="5e5ed437-0e62-4c39-8128-525a7e3c1d35" class="bulleted-list">
+				<li><strong>Protection </strong>: While C is executing, B also has something in the RAM, so it is
+					ensured that C do not mess up with the registers of B, this is reffered as protection.</li>
+			</ul>
+			<p id="7b422398-cb07-485f-9a81-9ec8d4498678" class="">
+			</p>
+			<p id="c96fe16d-fc48-4eb6-ad6c-52766341d1da" class="">
+			</p>
+			<p id="36f880a1-b6ef-4324-bc69-1f01291bd756" class="">
+			</p>
+			<p id="d742c848-bff6-4a7c-9f11-7587786e6035" class="">
+			</p>
+			<p id="468373c6-e61a-4163-8fa2-080e3ad2cdab" class="">
+			</p>
+		</div>
+	</article>
+</body>
+
+</html>
